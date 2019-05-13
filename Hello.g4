@@ -3,20 +3,18 @@
  */
 grammar Hello;
 
-r  : MORE_THAN;         // match keyword hello followed by an identifier
+r  : check+;         // match keyword hello followed by an identifier
 
-check: dos;
+check: firewall_attack|attack_login|dos;
 
-dos: MORE_THAN 'requests in less than' limit 'with the IP address' IP;  
+dos: 'if there are more than' INT 'requests in less than' limit 'with the IP address' IP;// {System.out.println("aplica dos")};  
 
-attack_login: MORE_THAN 'failed login' limit 'with the same' ACCOUNT;
+attack_login: 'if there are more than' INT 'failed login' limit 'with the same' ACCOUNT;
 
-firewall_attack: MORE_THAN 'firewall' DENY_WORDS 'in less than' limit;
+firewall_attack: 'if there are more than' INT 'firewall' DENY_WORDS 'in less than' limit;
 
 
 limit: INT TIME;  
-
-MORE_THAN: 'if''there''are''more''than'INT;
 
 IP : INT'.'INT'.'INT'.'INT;
 
@@ -24,7 +22,8 @@ ACCOUNT: ID'@'ID'.'ID;
 
 DENY_WORDS : 'drop'|'reject'|'deny';
 
-TIME: 'seconds'|'minutes';
+TIME: 'seconds'|'minutes'|'hours';
+ 
 
 ID : [a-zA-z]+ ;             // match lower-case identifiers
 
